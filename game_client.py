@@ -1,36 +1,36 @@
 import socket
 import random
 
-# List of valid choices
-choices = ['R', 'P', 'S']
+HOST = '127.0.0.1'
+PORT = 65433  # Updated to match the new server port
+choices = ["rock", "paper", "scissors"]
 
-# Function to handle client-side game logic
 def start_client():
-    # Connect to the server
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect(('localhost', 12345))
-
     try:
-        # Receive initial welcome message from the server
-        message = client_socket.recv(1024).decode()
-        print(message)
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect((HOST, PORT))
+        print(client_socket.recv(1024).decode())
 
-        for round_number in range(1, 11):  # Play 10 rounds
-            # Get player's choice (could be random or heuristic)
-            choice = random.choice(choices)  # Random choice for simplicity
-            print(f"Round {round_number}: Player choice is {choice}")
-            
-            # Send the choice to the server
-            client_socket.send(choice.encode())
-            
-            # Wait for the server's response (result of the round)
-            result = client_socket.recv(1024).decode()
-            print(result)
+        for round_num in range(1, 11):  # Play 10 rounds
+            # Wait for server prompt to make a pick
+            server_prompt = client_socket.recv(1024).decode()
+            print(server_prompt)
+
+            pick = random.choice(choices)
+            print(f"Round {round_num}: Sending pick: {pick}")
+            client_socket.sendall(pick.encode())
+
+            # Receive acknowledgment from server for the current round
+            server_response = client_socket.recv(1024).decode()
+            print(server_response)
+
+        print(client_socket.recv(1024).decode())
     
-    finally:
-        # Close the connection after 10 rounds
-        client_socket.close()
-        print("Game over!")
+    except (socket.error, BrokenPipeError) as e:
+        print(f"Connection lost: {e}")
 
-if __name__ == '__main__':
+    finally:
+        client_socket.close()
+
+if __name__ == "__main__":
     start_client()

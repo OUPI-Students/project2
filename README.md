@@ -7,8 +7,8 @@ This project implements a network-based Rock Paper Scissors game using Python's 
 ## Files
 
 - `README.md`: Project documentation
-- `server.py`: The server script that manages client connections, game logic, and stores the history of results.
-- `client.py`: The client script that connects to the server, sends player choices for each round, and receives the results.
+- `game_server.py`: The server script that manages client connections, game logic, and stores the history of results.
+- `game_client.py`: The client script that connects to the server, sends player choices for each round, and receives the results.
 - `game_ui.py`: The Flask web interface that displays the results of the game in real-time.
 - `templates/index.html`: The HTML template used by the Flask web interface to display the round history.
 
@@ -16,7 +16,3 @@ This project implements a network-based Rock Paper Scissors game using Python's 
 
 - Python 3.x
 - Flask (for the web interface)
-
-To install the required libraries, run the following command:
-```sh
-pip install -r requirements.txt

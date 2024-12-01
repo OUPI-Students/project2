@@ -27,6 +27,12 @@
         .round span {
             font-weight: bold;
         }
+        .round .result {
+            color: green;
+        }
+        .round .draw {
+            color: orange;
+        }
     </style>
 </head>
 <body>
@@ -36,7 +42,7 @@
         {% if history %}
             {% for round in history %}
                 <div class="round">
-                    <span>{{ round }}</span>
+                    <span class="{{ 'result' if 'wins' in round else 'draw' }}">{{ round }}</span>
                 </div>
             {% endfor %}
         {% else %}
