@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors - Game History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .history {
+            margin-top: 20px;
+        }
+        .round {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .round span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Rock Paper Scissors - Game History</h1>
+    <div class="history">
+        {% if history %}
+            {% for round in history %}
+                <div class="round">
+                    <span>{{ round }}</span>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No history available.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
